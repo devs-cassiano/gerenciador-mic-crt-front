@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 // Configuração base da API
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000/api',
+  baseURL: process.env.REACT_APP_API_URL || 'http://54.242.200.179:3000/api',
   timeout: 10000,
 });
 
