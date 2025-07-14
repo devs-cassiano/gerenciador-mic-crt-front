@@ -21,7 +21,7 @@ import {
   Close as CloseIcon
 } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
-import { useApiQuery, useApiMutation } from '../../hooks/useApi';
+import { useApiMutation } from '../../hooks/useApi';
 import { micDtaService } from '../../services/micDtaService';
 import { toast } from 'react-toastify';
 
@@ -35,19 +35,6 @@ export default function AddMicDtaToCRTForm({ open, onClose, crt, onSuccess }) {
       quantidade: 1
     }
   });
-
-  // Query para obter o próximo número sequencial
-  const { data: nextNumberData, isLoading: loadingNextNumber, refetch: refetchNextNumber } = useApiQuery(
-    ['next-mic-dta-number', crt?.transportadoraId, crt?.paisDestinoCodigo],
-    () => micDtaService.getNextNumber(
-      crt?.transportadoraId, 
-      crt?.paisDestinoCodigo, 
-      crt?.paisOrigemCodigo
-    ),
-    {
-      enabled: open && !!crt?.transportadoraId && !!crt?.paisDestinoCodigo
-    }
-  );
 
   // Mutation para criar MIC/DTA
   const createMutation = useApiMutation(
@@ -78,13 +65,6 @@ export default function AddMicDtaToCRTForm({ open, onClose, crt, onSuccess }) {
       setValue('quantidade', 1);
     }
   }, [open, crt, setValue]);
-
-  // Atualizar número quando o próximo número for carregado
-  useEffect(() => {
-    if (nextNumberData?.data?.numeroCompleto) {
-      setValue('numero', nextNumberData.data.numeroCompleto);
-    }
-  }, [nextNumberData, setValue]);
 
   const onSubmit = (data) => {
     const formattedData = {
