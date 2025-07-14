@@ -193,21 +193,6 @@ export default function AddMicDtaToCRTForm({ open, onClose, crt, onSuccess }) {
           </Box>
 
           <Grid container spacing={3}>
-            {/* Número */}
-            <Grid item xs={12} sm={6}>
-              <TextField
-                {...register('numero', { required: 'Número é obrigatório' })}
-                label="Número MIC/DTA"
-                fullWidth
-                error={!!errors.numero}
-                helperText={errors.numero?.message || 'Número gerado automaticamente'}
-                InputProps={{
-                  readOnly: true
-                }}
-                value={watch('numero') || (loadingNextNumber ? 'Carregando...' : '')}
-              />
-            </Grid>
-
             {/* Quantidade */}
             <Grid item xs={12} sm={6}>
               <TextField
